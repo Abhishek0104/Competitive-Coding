@@ -2,6 +2,14 @@
 using namespace std;
 int main()
 {
+    vector<vector<int64_t>> bi(60, vector<int64_t>(60));
+    bi[0][0] = 1;
+    for(int i = 1; i < 60; i++ )
+    {
+        bi[i][0] = 1;
+        for(int j = 1; j < 60; j++)
+            bi[i][j] = bi[i-1][j-1] + bi[i-1][j];
+    }
     int t;
     cin >> t;
     while(t--)
@@ -10,26 +18,21 @@ int main()
         cin >> n;
         cin >> k;
         int a[n];
-        for(int  i = 0; i < n; i++)
+        for(int i = 0; i < n; i++)
             cin >> a[i];
-
         sort(a, a+n);
-        int sum = 0, co = 0;
-        for(int i = 0; i < k; i++)
-            sum += a[i];
-        co++;
-        for(int i = 1; i <= n - k; i++)
+        int in = 0;
+        int c = 0;
+        int x = a[k-1];
+        for(int i = 0;  i < n ; i++)
         {
-            int temp = 0;
-            for(int j = i; j < i + k; j++)
+            if(a[i] == x)
             {
-                temp += a[j];
+                if(i < k)
+                    in++;
+                c++;
             }
-            if(temp == sum)
-                co++;
-            else
-                break;
         }
-        cout << co << endl;
+        cout << bi[c][in] << endl;
     }
 }
