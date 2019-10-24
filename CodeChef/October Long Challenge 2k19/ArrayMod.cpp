@@ -1,33 +1,49 @@
 #include<bits/stdc++.h>
-#include<iostream>
 using namespace std;
-int XOR(int a, int b)
+
+
+int n;
+long long k;
+int a[100200];
+
+void do_it()
 {
-    return (a|b) & (~a|~b);
+    cin >> n >> k;
+    for(int  i = 0; i < n; i++)
+        cin >> a[i];
+    for(int i = 0; i < n; i++)
+    {
+        int ans = 0, op = k/n + ((k%n) > i), j = n - i - 1;
+        if(i < j)
+        {
+            switch (op % 3) {
+              case 0: ans = a[i]; break;
+              case 1: ans = a[i] ^ a[j]; break;
+              case 2: ans = a[j]; break;
+          }
+      } else if (i > j)
+      {
+          switch (op % 3) {
+              case 0: ans = a[i]; break;
+              case 1: ans = a[j]; break;
+              case 2: ans = a[i] ^ a[j]; break;
+              }
+      } else
+      {
+          if(k > i) ans = 0;
+          else ans = a[i];
+      }
+      cout <<ans; putchar(' ');
+
+    }
+    putchar('\n');
 }
+
 int main()
 {
     int t;
     cin >> t;
     while(t--)
-    {
-        int n, k;
-        cin >> n;
-        cin >> k;
-        int a[n];
-        int i, p;
-
-        for(i = 0; i < n; i++)
-            cin >> a[i];
-        for(i =0; i < k; i++)
-        {
-            p = i%n;
-            a[p] = XOR(a[p], a[n-1-p]);
-        }
-
-        for(i = 0; i < n; i++)\
-            cout << a[i] << " ";
-
-        cout << endl;
-    }
+        do_it();
+    return 0;
 }

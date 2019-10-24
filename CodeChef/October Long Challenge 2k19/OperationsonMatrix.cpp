@@ -1,41 +1,45 @@
 #include<bits/stdc++.h>
-#include<iostream>
 using namespace std;
+int row[100005], col[100005];
 int main()
 {
     int t;
     cin >> t;
     while(t--)
     {
-        int n, m, k, i, j;
-        cin >> n;
-        cin >> m;
-        cin >> k;
-        int a[n][m];
-        for(i = 0; i < n; i++)
-        {
-            for(j = 0; j < m; j++)
-                a[i][j] = 0;
-        }
+        long long int n, m, q, i;
+        cin >> n >> m >> q;
 
-        while(k--)
+        for(i = 1 ; i <= n; i++)
+            row[i] = 0;
+        for(i = 1; i< m; i++)
+            col[i] = 0;
+        long long int x, y;
+        while(q--)
         {
-            int x, y;
-            cin >> x;
-            cin >> y;
-            x--;
-            y--;
-            for(i = 0; i < m; i++)
-                a[x][i] = a[x][i] == 0 ? 1:0;
-            for(i = 0; i < n; i++)
-                a[i][y] = a[i][y] == 0 ? 1:0;
+            cin >> x >> y;
+            row[x]++;
+            col[y]++;
+            row[x] %= 2;
+            col[y] %= 2;
         }
-        int sum = 0;
-        for(i = 0; i < n; i++)
+        long long int a, b, c, d;
+        a = b = c = d = 0;
+        for(i = 1 ; i <= n; i++)
         {
-            for(j = 0; j < m; j++)
-                sum += a[i][j];
+            if(row[i])
+                a++;
+            else
+                b++;
         }
-        cout << sum << endl;
+        for(i = 1; i<= m; i++)
+        {
+            if(col[i])
+                c++;
+            else
+                d++;
+        }
+        long long int ans = a*d + b*c;
+        cout << (ans) << endl;
     }
 }
